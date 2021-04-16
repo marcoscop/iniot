@@ -1,0 +1,27 @@
+<h3 class="text-white">{{carrito.nombre}}</h3>
+<table class="table table-striped table-light table-hover text-center">
+  <thead class="table-light"> 
+    <tr>
+      <th scope="col">NUMERO</th>
+      <th scope="col">SERIE</th>
+      <th scope="col">MARCA</th>
+      <th scope="col">MODELO</th>
+      <th scope="col">MAC-ADDRESS</th>
+      <th colspan="2" scope="col">Acciones</th>
+    </tr>      
+  </thead>
+  <tbody>
+    {{#each listaNetbooks}}
+    <tr>
+      <th scope="row">{{numero}}</th>
+      <td>{{serie}}</td>
+      <td>{{marca}}</td>
+      <td>{{modelo}}</td>
+      <td>{{mac}}</td>
+      <td><a href="/netbooks/edit/{{_id}}"><button type="button" class="btn btn-outline-danger">Delete</button></a></td>
+      <td><a href="/netbooks/edit/{{_id}}"><button type="button" class="btn btn-outline-warning">Edit</button></a></td>
+    </tr>
+    {{/each}}    
+  </tbody>
+</table>
+</table>

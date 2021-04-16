@@ -1,0 +1,22 @@
+<div class="row">
+    {{#each carritos}}
+    <div class="col-md-3">
+        <div class="card" >
+            <img class=" mx-auto d-block m-4 logoIn" src="/img/rack.png">
+            <div class="card-body">
+                <h5 class="card-title text-white bg-primary p-3">{{nombre}}</h5>
+                <p class="card-text">Cantidad de Netbooks: {{cantidad}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Detalles:</li>
+                <li class="list-group-item">{{detalle}}</li>
+            </ul>
+            <div class="card-body">
+                <a href="/carritos/listar-nets/{{_id}}" class="card-link">Inspeccionar</a>
+                <a href="/carritos/edit/{{_id}}" class="card-link">Editar</a>
+            </div>
+
+        </div>
+    </div>
+    {{/each}}
+</div>

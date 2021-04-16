@@ -1,0 +1,50 @@
+<div class="col-md-8 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Nueva Netbook</h3>
+        </div>
+        <div class="card-bady">
+            <form action="/netbooks/new-nets" method="post">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Carrito</label>
+                        <select id="inputState" name = "idCarrito" class="form-control">
+                            {{#each carritos}}
+                            <option value="{{_id}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputEmail4">Numero de Netbook</label>
+                        <input type="text" name = "numero" class="form-control md-4" value="{{numero}}"/>
+                    </div>
+                    <div class="col">
+                        <label for="inputEmail4">Numero de Serie</label>
+                        <input type="text" name = "serie" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label for="inputEmail4">Mac-Address</label>
+                        <input type="text" name = "macaddress" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputEmail4">Marca</label>
+                        <input type="text" name = "marca" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label for="inputEmail4">Modelo</label>
+                        <input type="text" name = "modelo" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-guoup">
+                    <button class="btn btn-primary">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

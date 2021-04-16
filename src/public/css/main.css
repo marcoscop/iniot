@@ -1,0 +1,16 @@
+body{
+    background: #000000;
+}
+/*.rackImg{
+    width: 30%;
+}*/
+.imgEditAndDelete{
+    width: 10%;
+}
+.netbook{
+    width: 10%;
+}
+.container-fluid{
+    background-color: antiquewhite;
+    border-radius: 30px;
+}
