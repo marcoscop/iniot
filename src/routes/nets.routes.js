@@ -1,4 +1,5 @@
 const {Router} = require('express');
+const { check } = require('express-validator');
 
 const router = Router();
 
@@ -7,24 +8,42 @@ const {
     createNewNet,
     renderNets,
     renderEditForm,
+    renderEstados,
+    newEstado,
     updateNet,
     deleteNet
 } = require('../controllers/nets.controller');
 
-// Nuevas Notas
-router.get('/netbooks/add', renderNetsForm);
 
-router.post('/netbooks/new-nets', createNewNet);
+//------------------- VALIDACIONES ----------------------//
+const validar = [
+    check('serie')
+        .isLength({min:1})
+        .withMessage('El numero de serie no puede estar vacio')
+    ,
+    check('numero')
+        .exists()
+        .trim()
+        .isInt()
+        .withMessage('numero debe contener solo caracteres numéricos enteros')
+];
 
-// Obtener todas las notas
-router.get('/netbooks', renderNets);
+//-------------------   RUTAS   -----------------------//
 
-// Editar Notas
+// Nuevas Netbooks
+router.get('/netbooks/add/:id/:nom', renderNetsForm);
+
+router.post('/netbooks/add/:id/:nom',validar, createNewNet);
+
+// Obtener todas las netbooks
+router.get('/netbooks/:id/:carrito', renderNets);
+
+// Editar Netbooks
 router.get('/netbooks/edit/:id', renderEditForm);
 
 router.put('/netbooks/edit/:id', updateNet);
 
-//Delete notes
+//Delete netbooks
 router.delete('/netbooks/delete/:id', deleteNet);
 
 module.exports = router;

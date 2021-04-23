@@ -12,7 +12,7 @@ const myConnection = require('express-myconnection');
 const app = express();
 
 // Configuraciones
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 9000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({
     defaultLayout:'main',
@@ -49,6 +49,7 @@ app.use(require('./routes/index.routes'));
 app.use(require('./routes/carrito.routes'));
 app.use(require('./routes/nets.routes'));
 app.use(require('./routes/prestamo.routes'));
+app.use(require('./routes/estado.routes'));
 //app.use(require('./routes/users.routes'));
 // Static Files
 app.use(express.static(path.join(__dirname, 'public'))); 

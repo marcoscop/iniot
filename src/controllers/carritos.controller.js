@@ -17,7 +17,6 @@ carritoController.addNewCarrito = async (req, res,) => {
     const { nombre, cantidad, detalle } = req.body;
     let errorMsg = [];
     const carritoExiste = [];
-    const ab = [];
     const errores = validationResult(req);
 
     if (!errores.isEmpty()) {
@@ -32,19 +31,20 @@ carritoController.addNewCarrito = async (req, res,) => {
                 console.error(err);
             } else {
                 //--> Validar que no exista un carrito con el mismo nombre                
-                if (Object.keys(carrito).length != 0) {                                        
+                if (Object.keys(carrito).length != 0) {
                     carritoExiste.push({ text: 'Ya existe un carrito con el nombre que intenta usar' });
                 }
                 if (errores.isEmpty() && carritoExiste.length === 0) {
                     const newCarrito = req.body;
                     sql = 'INSERT INTO carritos set ?';
                     conn.query(sql, [newCarrito], (err, carritos) => {
-                        if(err){
+                        if (err) {
                             console.log('ERROR DB: ', err);
                         }
-                        console.log('Carritos: ', carritos);
-                        res.redirect('carritos/');
-                    });                    
+                        //console.log('Carritos: ', carritos);
+
+                        res.redirect('/carritos');
+                    });
                 } else {
                     console.log(errorMsg);
                     res.render('carritos/new-carrito', {
@@ -54,27 +54,28 @@ carritoController.addNewCarrito = async (req, res,) => {
                         cantidad,
                         detalle
                     });
-                }                
+                }
             }
         });
     });
 }
 carritoController.showCarritos = async (req, res) => {
     //res.send('Listando los carritos');
-    const errors = [];
-    req.getConnection((err, conn) => {
+    const carritoExiste = [];
+    await req.getConnection((err, conn) => {
         conn.query('SELECT * FROM carritos', (err, carritos) => {
             if (err) {
-                errors.push({ text: 'Error consultando la tabla' });
+                carritoExiste.push({ text: 'Error consultando la tabla' });
                 console.log(err);
             }
             if (carritos) {
                 //if (carritos.length <= 0) {
-                if(Object.keys(carritos).length === 0){
+                if (Object.keys(carritos).length === 0) {
                     //req.flash('success_msg', 'Note Update Successfully');
-                    errors.push({ text: 'No existen carritos creados' });
+                    carritoExiste.push({ text: 'No existen carritos creados' });
                 }
-                res.render('carritos/all-carrito', { carritos, errors });
+                console.log('carritos: ', carritos);
+                res.render('carritos/all-carrito', { carritos, carritoExiste });
             }
         });
     });
@@ -97,8 +98,46 @@ carritoController.updateCarrito = async (req, res) => {
 
 carritoController.renderNetbook = async (req, res) => {
     console.log("Carrito ID: ", req.params.id);
-    //res.send('Renderizar lista de netbooks');
+    console.log("Carrito: ", req.params.nom);
+    const idCarrito = req.params.id;
+    const nomCarrito = req.params.nom;
+    const noNet = [];
 
+    let nombreCarrito = {};
+    //let idCarrito = "";
+    //res.send('Renderizar lista de netbooks');
+    await req.getConnection((err, conn) => {
+        let sql = 'SELECT netbook.id AS netId, netbook.numero, netbook.serie, netbook.macaddress, netbook.marca, netbook.modelo, ' +
+            ' carritos.id AS cID, carritos.nombre' +
+            ' FROM netbook INNER JOIN carritos ON netbook.carrito = carritos.id WHERE carritos.id = ?';
+        conn.query(sql, [req.params.id], (err, listaNetbooks) => {
+            if (err) {
+                console.log('error sql: ', err);
+            }
+            if (Object.keys(listaNetbooks).length === 0) {                
+                noNet.push({text:'No existen netbooks para el Carrito seleccionado'});
+                //console.log('No hay netbooks cargadas en el carrito');
+                //nomCarrito
+            }else{
+                console.log('Netbooks pertenecientes al carrito: ',listaNetbooks);                
+                //if(listaNetbooks){
+                    //console.log('Lista Netbooks: ',listaNetbooks);
+                    //console.log('nombre carrito: ', listaNetbooks[0].nombre);
+                    //nombreCarrito = listaNetbooks[0].nombre;
+                    //idCarrito = listaNetbooks[0].cID;
+                //}*/
+            }
+            res.render('carritos/listar-nets',{
+                listaNetbooks,
+                nomCarrito,
+                idCarrito,
+                noNet
+            });            
+        });
+    });
+    
+        
+    
     //console.log('carrito: ', carrito);
     //console.log('Lista Netbooks: ',listaNetbooks);
 

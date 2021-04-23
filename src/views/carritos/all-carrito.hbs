@@ -1,4 +1,5 @@
 <div class="row">
+    
     {{#each carritos}}
     <div class="col-md-3">
         <div class="card" >
@@ -12,8 +13,8 @@
                 <li class="list-group-item">{{detalle}}</li>
             </ul>
             <div class="card-body">
-                <a href="/carritos/listar-nets/{{_id}}" class="card-link">Inspeccionar</a>
-                <a href="/carritos/edit/{{_id}}" class="card-link">Editar</a>
+                <a href="/carritos/listar-nets/{{id}}/{{nombre}}" class="card-link">Inspeccionar</a>
+                <a href="/carritos/edit/{{id}}" class="card-link">Editar</a>
             </div>
 
         </div>

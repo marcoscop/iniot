@@ -42,6 +42,6 @@ router.get('/carritos/edit/:id', renderEditForm);
 
 router.put('/carritos/edit/:id', updateCarrito);
 
-router.get('/carritos/listar-nets/:id',renderNetbook); 
+router.get('/carritos/listar-nets/:id/:nom',renderNetbook); 
 
 module.exports = router;

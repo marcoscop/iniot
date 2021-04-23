@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-6">
+        <h3>{{nomCarrito}}</h3>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        <a href="/netbooks/add/{{idCarrito}}/{{nomCarrito}}"><button type="button" class="btn btn-outline-primary">+Add
+                Netbook</button></a>
+    </div>
+</div>
+<div class="container mt-5">
+
+    <table class="table table-striped table-light table-hover text-center">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">NUMERO</th>
+                <th scope="col">SERIE</th>
+                <th scope="col">MARCA</th>
+                <th scope="col">MODELO</th>
+                <th scope="col">MAC-ADDRESS</th>
+                <th colspan="3" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each listaNetbooks }}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{numero}}</td>
+                <td>{{serie}}</td>
+                <td>{{marca}}</td>
+                <td>{{modelo}}</td>
+                <td>{{macaddress}}</td>
+                <td><a href="/netbooks/edit/{{netId}}/{{cID}}" class="text-danger" >Del</a>
+                </td>
+                <td><a href="/netbooks/edit/{{netId}}/{{cID}}" class="text-success">Edit</a>
+                </td>
+                <td>
+                    <a href="/netbooks/{{netId}}/{{cID}}" class="text-primary">View</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    </table>
+</div>

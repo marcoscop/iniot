@@ -1,0 +1,50 @@
+{{#each netbook}}
+<h3 class="text-primary">Pertenece a: {{nombre}}</h3>
+
+<table class="table  table-bordered table-light table-hover text-center">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">NUMERO</th>
+      <th scope="col">SERIE</th>
+      <th scope="col">MARCA</th>
+      <th scope="col">MODELO</th>
+      <th scope="col">MAC-ADDRESS</th>
+      <th scope="col">ESTADO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{numero}}</th>
+      <td>{{serie}}</td>
+      <td>{{marca}}</td>
+      <td>{{modelo}}</td>
+      <td>{{macaddress}}</td>
+      <td>{{estado}}</td>
+    </tr>
+  </tbody>
+</table>
+<p> <strong> Detalles:</strong> {{detalle}} </p>
+{{/each}}
+<a href="/estados/{{idNetbook}}"> <button type="button" class="btn btn-outline-primary">+Add Estado</button></a>
+<hr/>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">DETALLE</th>
+      <th scopet="col">ESTADO</th>
+      <th scope="col">FECHA</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each listadoEstados}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{detalle}}</td>
+      <td>{{estado}}</td>
+      <td>{{fecha}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
