@@ -1,24 +1,32 @@
-<div class="col-md-4 mx-auto">
-    <div class="card text-center ">        
-        <div class="card-header">
-            <h3 class="card-title">Editar Carrito</h3>
+<div class="col-md-8 mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h3 class="text-light">Editar Carrito</h3>
         </div>
-        <div class="card-bady" >
-            <form action="/carritos/edit/{{carrito._id}}?_method=PUT" method="post">
-                <input type="hidden" name="_method" value="PUT">
+        <div class="card-body">
+            <form action="/carritos/edit/{{id}}?_method=PUT" method="POST">
+                
                 <div class="form-group">
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombre Carrito" autofocus value="{{carrito.nombre}}">
+                    <label for="nombre">Nombre de Carrito</label>
+                    <input type="text" name="nombre" placeholder="Nombre Carrito" required class="form-control"
+                        value="{{nombre}}">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="cantidad" class="form-control" placeholder="Cantidad de Netbooks" value="{{carrito.cantidad}}">
+                    <label for="nombre">Cantidad de Netbooks Recibidas</label>
+                    <input type="text" name="cantidad" placeholder="Cantidad de Netbooks" required class="form-control"
+                        value="{{cantidad}}">
                 </div>
                 <div class="form-group">
-                    <textarea name="detalle" class="form-control" placeholder="Detalle" >{{carrito.detalle}}</textarea>
+                    <label for="nombre">Detalles y/o Observaciones</label>
+                    <textarea name="detalle" class="form-control" placeholder="Detalle"></textarea>
                 </div>
-                <div class="form-guoup">
-                    <button class="btn btn-primary">
-                        Guardar
-                    </button>
+                <div class="col-12 d-grid">
+                    <div class="form-guoup">
+
+                        <button class="btn btn-success btn-block">
+                            Guardar
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

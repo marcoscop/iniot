@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2021 a las 14:29:18
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.6
+-- Host: 127.0.0.1
+-- Generation Time: May 17, 2021 at 02:28 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `iniot`
+-- Database: `iniot`
 --
 CREATE DATABASE IF NOT EXISTS `iniot` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `iniot`;
@@ -26,7 +26,7 @@ USE `iniot`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumnos`
+-- Table structure for table `alumnos`
 --
 
 CREATE TABLE `alumnos` (
@@ -39,7 +39,7 @@ CREATE TABLE `alumnos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `carritos`
+-- Table structure for table `carritos`
 --
 
 CREATE TABLE `carritos` (
@@ -50,17 +50,29 @@ CREATE TABLE `carritos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `carritos`
+-- Dumping data for table `carritos`
 --
 
 INSERT INTO `carritos` (`id`, `nombre`, `cantidad`, `detalle`) VALUES
-(14, 'Carrito Uno', 30, ''),
-(15, 'Carrito Dos', 30, 'Este tiene detalles');
+(16, 'Carrito Uno', 30, 'No dejaron el Remito cuando entregaron las netbooks'),
+(17, 'Carrito Dos', 30, '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `docentes`
+-- Table structure for table `devoluciones`
+--
+
+CREATE TABLE `devoluciones` (
+  `id` int(11) NOT NULL,
+  `id_prestamo` int(11) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `docentes`
 --
 
 CREATE TABLE `docentes` (
@@ -73,45 +85,56 @@ CREATE TABLE `docentes` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estados`
+-- Table structure for table `estados`
 --
 
 CREATE TABLE `estados` (
   `id` int(11) NOT NULL,
-  `id_netbook` int(11) NOT NULL,
-  `detalle` text NOT NULL,
-  `fecha` date NOT NULL,
-  `estado` varchar(20) NOT NULL
+  `estado` varchar(20) NOT NULL,
+  `nombre_estado` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `estados`
+-- Dumping data for table `estados`
 --
 
-INSERT INTO `estados` (`id`, `id_netbook`, `detalle`, `fecha`, `estado`) VALUES
-(1, 2, 'Netbook Bloqueada', '2021-04-20', 'INACTIVA'),
-(2, 2, 'No funciona el teclado', '2021-04-13', 'INACTIVA'),
-(3, 2, 'Pila agotada', '2021-04-01', 'INACTIVA'),
-(4, 2, 'l-jghxzxcvhbjnkml', '2021-04-22', 'ACTIVA'),
-(5, 2, 'Estoy agregando este estado', '2021-04-22', 'INACTIVA'),
-(6, 2, '1231243213523452345', '2021-04-22', 'ACTIVA'),
-(7, 2, '123456789876543', '2021-04-21', 'INACTIVA'),
-(8, 2, '123456789876543', '2021-04-21', 'INACTIVA'),
-(9, 2, '124ryfgadfasdf', '2021-04-22', 'ACTIVA'),
-(10, 2, '124ryfgadfasdf', '2021-04-22', 'ACTIVA'),
-(11, 2, '124ryfgadfasdf', '2021-04-22', 'ACTIVA'),
-(12, 2, 'asdfasdf', '2021-04-06', 'ACTIVA'),
-(13, 2, 'vamosssssssssssssssssssssssssssssss', '2021-04-23', 'ACTIVA'),
-(14, 2, 'asdszdfhsfghdfgh', '2021-04-13', 'ACTIVA'),
-(15, 2, 'asdszdfhsfghdfgh', '2021-04-13', 'ACTIVA'),
-(16, 2, 'sdfghjklñ´poij', '2021-04-21', 'ACTIVA'),
-(17, 2, '1231212312', '2021-04-17', 'ACTIVA'),
-(18, 2, '1231212312', '2021-04-17', 'ACTIVA');
+INSERT INTO `estados` (`id`, `estado`, `nombre_estado`) VALUES
+(29, 'ACTIVA', 'Teclado'),
+(30, 'ACTIVA', 'Desbloqueada'),
+(31, 'INACTIVA', 'Bloqueada'),
+(32, 'INACTIVA', 'Pantalla Rota'),
+(33, 'ACTIVA', 'No detecta Bateria'),
+(38, 'INACTIVA', 'Teclado Roto');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `netbook`
+-- Table structure for table `estados_netbooks`
+--
+
+CREATE TABLE `estados_netbooks` (
+  `id` int(11) NOT NULL,
+  `id_netbook` int(11) NOT NULL,
+  `id_estado` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `observaciones` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `estados_netbooks`
+--
+
+INSERT INTO `estados_netbooks` (`id`, `id_netbook`, `id_estado`, `fecha`, `observaciones`) VALUES
+(5, 39, 29, '2021-05-04 08:57:00', 'Se presto a un alumno y devolvio con una tecla rota'),
+(6, 39, 33, '2021-05-12 09:36:00', 'No detecta la bateria.-'),
+(7, 31, 31, '2021-05-10 07:30:00', 'Pila agotada -'),
+(8, 32, 31, '2021-05-11 08:10:00', 'Pila agotada'),
+(9, 30, 29, '2021-05-12 08:55:00', 'Le falta la tecla \"ñ\"');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `netbook`
 --
 
 CREATE TABLE `netbook` (
@@ -127,106 +150,215 @@ CREATE TABLE `netbook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `netbook`
+-- Dumping data for table `netbook`
 --
 
 INSERT INTO `netbook` (`id`, `numero`, `serie`, `macaddress`, `carrito`, `detalle`, `marca`, `modelo`, `estado`) VALUES
-(1, '101', 'AA20304050', NULL, 14, NULL, NULL, '', 'ACTIVA'),
-(2, '101', 'AA34343434', 'DD:34:AB:CD', 15, 'asdfasdfasdf asddfasdf sadfasdfasdf fasdfasdf asdfasdfasdf asdf asdfasdf asdf sadf', 'NOBLEX', 'AS20AF', NULL),
-(3, '101', 'AA34343434', 'DD:34:AB:CD', 15, 'Contra el corona virus', 'NOBLEX', 'AS20AF', NULL),
-(4, '101', 'AA34343434', 'DD:34:AB:CD', 15, 'Contra el corona virus', 'NOBLEX', 'AS20AF', NULL),
-(5, '102', 'AA10203040', 'DD:34:AB:00', 15, 'Contra el corona virus', 'NOBLEX', 'AS20AF', NULL),
-(6, '103', 'AA10203040', 'DD:34:AB:00', 15, 'Contra el corona virus', 'NOBLEX', 'AS20AF', NULL),
-(7, '104', 'AA20304051', 'DD:34:AB:CD', 15, 'Contra el dengue', 'NOBLEX', 'AS20AF', NULL),
-(8, '203', 'AA102030221', 'DD:34:AB:CD', 15, '', 'NOBLEX', '', NULL),
-(9, '109', 'AAASDFSADF', '', 15, '', '', '', NULL),
-(10, '101', 'AA20304050', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(11, '110', 'AA20505050', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(12, '120', 'AA1111111111', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(13, '101', 'AA20304050', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(14, '101', 'AA20304050', '12345', 15, '', '', '', NULL),
-(15, '101', 'AA20304050', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(16, '101', 'AA20304050', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(17, '101', 'AA20304050', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(18, '101', 'AA34343434', 'DD:34:AB:CD', 15, '', '', '', NULL),
-(19, '1014', 'AA203040504', 'DD:34:AB:CD', 14, 'Netbook no reconoce la bateria', '', '', 'INACTIVA'),
-(20, '10145', 'AA2030405042', 'DD:34:AB:CD', 14, '', '', '', NULL),
-(21, '2020', 'AA1414141414', 'MACADDRESS', 14, '', '', '', NULL),
-(22, '2021', 'AA141414142', 'ASDFASDF', 14, '', '', '', NULL),
-(23, '101223', 'AA203042', 'DD:34:AB:CD', 14, '', 'NOBLEX', '', NULL),
-(24, '2055', 'AA20304059', '12345', 14, '', '', '', NULL),
-(25, '1013', 'AA203040503', 'DD:34:AB:CD', 14, '', '', '', NULL),
-(26, '10135', 'AA2030405035', 'DD:34:AB:CD', 14, '', '', '', NULL),
-(27, '1', 'MARCOS', 'MARCOS', 14, '', 'MARCOS', '', NULL),
-(28, '10166', 'AA2030405033', '', 14, '', '', '', NULL);
+(29, '101', 'AA9027170801', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(30, '102', 'AA7027084249', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(31, '103', 'AA4027139827', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(32, '104', 'AA1027162004', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(33, '105', 'AA7027216190', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(34, '106', 'AA1027237421', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(35, '107', 'AA7027067117', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(36, '108', 'AA9027151112', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(37, '109', 'AA9027062865', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(38, '110', 'AA8027240919', '', 16, '', 'NOBLEX', 'SF20BA', NULL),
+(39, '201', 'AA9027273753', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(40, '202', 'AA9027272732', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(41, '203', 'AA8027086422', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(42, '204', 'AA9027259076', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(43, '205', 'AA9027228044', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(44, '206', 'AA9027285512', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(45, '207', 'AA8027158843', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(46, '208', 'AA9027290945', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(47, '209', 'AA9027259927', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(48, '210', 'AA3027031151', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(49, '211', 'AA3027021739', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(50, '212', 'AA9027175790', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(51, '213', 'AA9027271176', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(52, '214', 'AA9027270442', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(53, '215', 'AA9027182797', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(54, '216', 'AA9027276851', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(55, '217', 'AA9027255533', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(56, '218', 'AA9027257373', '', 17, '', 'NOBLEX', 'SF20BA', NULL),
+(57, '219', 'AA9027272307', '', 17, '', 'NOBLEX', 'SF20BA', NULL);
+
+-- --------------------------------------------------------
 
 --
--- Índices para tablas volcadas
+-- Table structure for table `prestamos`
+--
+
+CREATE TABLE `prestamos` (
+  `id` int(11) NOT NULL,
+  `nombre_usuario` varchar(200) NOT NULL,
+  `id_netbook` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `observacion` text DEFAULT NULL,
+  `devolvio` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `prestamos`
+--
+
+INSERT INTO `prestamos` (`id`, `nombre_usuario`, `id_netbook`, `fecha`, `observacion`, `devolvio`) VALUES
+(12, 'Marcos Copetti', 29, '2021-05-12 08:30:30', 'Presentacion practico c/proyector', 0),
+(13, 'El Charco', 48, '2021-05-12 08:35:53', '', 0),
+(14, 'Schulz Facundo', 39, '2021-05-13 08:58:01', 'Lleva hoy', 0),
+(15, 'Alves de Almeida Jose', 40, '2021-05-13 08:58:28', 'LLeva ahora', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `nombre`, `password`) VALUES
+(1, 'marcos', 'password'),
+(2, 'marcos2', 'password'),
+(3, 'marcos3', 'password'),
+(4, 'marcos4', 'password');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `alumnos`
+-- Indexes for table `alumnos`
 --
 ALTER TABLE `alumnos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `carritos`
+-- Indexes for table `carritos`
 --
 ALTER TABLE `carritos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `docentes`
+-- Indexes for table `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `docentes`
 --
 ALTER TABLE `docentes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `estados`
+-- Indexes for table `estados`
 --
 ALTER TABLE `estados`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `netbook`
+-- Indexes for table `estados_netbooks`
+--
+ALTER TABLE `estados_netbooks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_netbook` (`id_netbook`),
+  ADD KEY `id_estado` (`id_estado`);
+
+--
+-- Indexes for table `netbook`
 --
 ALTER TABLE `netbook`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indexes for table `prestamos`
+--
+ALTER TABLE `prestamos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `alumnos`
+-- AUTO_INCREMENT for table `alumnos`
 --
 ALTER TABLE `alumnos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `carritos`
+-- AUTO_INCREMENT for table `carritos`
 --
 ALTER TABLE `carritos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `docentes`
+--
+ALTER TABLE `docentes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `estados_netbooks`
+--
+ALTER TABLE `estados_netbooks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `netbook`
+--
+ALTER TABLE `netbook`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+
+--
+-- AUTO_INCREMENT for table `prestamos`
+--
+ALTER TABLE `prestamos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT de la tabla `docentes`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `docentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `estados`
+-- Constraints for dumped tables
 --
-ALTER TABLE `estados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT de la tabla `netbook`
+-- Constraints for table `estados_netbooks`
 --
-ALTER TABLE `netbook`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+ALTER TABLE `estados_netbooks`
+  ADD CONSTRAINT `estados_netbooks_ibfk_1` FOREIGN KEY (`id_netbook`) REFERENCES `netbook` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `estados_netbooks_ibfk_2` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

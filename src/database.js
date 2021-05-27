@@ -1,15 +1,28 @@
-/*const mongoose = require('mongoose');
 
-/*const NOTES_APP_MONGODB_HOST = process.env.NOTES_APP_MONGODB_HOST;
-const NOTES_APP_MONGODB_DATABASE = process.env.NOTES_APP_MONGODB_DATABASE;*//*
-const {INIOT_APP_MONGODB_HOST, INIOT_APP_MONGODB_DATABASE} = process.env;
-const MONGODB_URI = `mongodb://${INIOT_APP_MONGODB_HOST}/${INIOT_APP_MONGODB_DATABASE}`;
+const mysql = require('mysql');
+const { promisify } = require('util');
 
-mongoose.connect(MONGODB_URI,{    
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-})
+const { database } = require('./key');
 
-    .then(db => console.log("Database is connected"))
-    .catch(err => console.log(err));*/
+const pool = mysql.createPool(database);
+
+pool.getConnection((err, connection) => {
+    if (err) {
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            console.error('LA CONEXION CON LA BASE DE DATOS HA SIDO CERRADA');
+        }
+        if (err.code === 'ER_CON_COUNT_ERROR') {
+            console.error('La base de datos tiene muchas conexiones');
+        }
+        if (err.code === 'ECONNREFUSED') {
+            console.error('La conexion a la base de datos ha sido rechazada');
+        }
+    }
+    if (connection) connection.release();
+    console.log('DB IS CONNECTED');
+    return;
+});
+// promisify  Pool Query  --> convirtiendo a promesas para poder usar async y await
+pool.query = promisify(pool.query);
+
+module.exports = pool;

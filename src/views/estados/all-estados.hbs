@@ -1,59 +1,63 @@
-<div class="row mt-5">
+<div class="row mt-2">
     <div class="col-md-8">
-        <div class="card-body">
-            <form action="/estados/{{id}}" method="post">
-                <div class="form-group">
-                    <label for="estado">Estado</label>
-                    <select class="form-select form-select-lg mb-3" name="estado">                        
-                        <option value="ACTIVA">ACTIVA</option>
-                        <option value="INACTIVA">INACTIVA</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" id="fecha" name="fecha">
-                </div>
-                <div class="form-group">
-                    <label for="detalle">Detalle</label>
-                    <textarea name="detalle" id="detalle" class="form-control" cols="20" rows="5"
-                        placeholder="Detalles"></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Save</button>
-                </div>
-            </form>
+        <div class="card">
+            <div class="card-body">
+                <form action="/estados/{{datosNetbook.id}}" method="post">
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <select class="form-select form-select-lg mb-3" name="estado">
+                            {{#each estados}}
+                                <option value="{{id}}">{{nombre_estado}}</option>                                
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha">
+                    </div>
+                    <div class="form-group">
+                        <label for="detalle">Detalle</label>
+                        <textarea name="detalle" id="detalle" class="form-control" cols="20" rows="5"
+                            placeholder="Detalles"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-success btn-block">GUARDAR</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>   
+    </div>
     <div class="col-md-4">
-        <div class="card mt-5">            
+        <div class="card">
             <div class="card-header">
-                <h4 class="card-title">DATOS DE LA NETBOOKS</h4>
-                <p>Numero de Netbook: <strong>{{numero}}</strong></p>
-                <p>Numero de Serie: <strong>{{serie}}</strong></p>                
+                <h5 class="text-primary">DATOS DE LA NETBOOKS</h5>
+                <p>Numero de Netbook: <strong>{{datosNetbook.numero}}</strong></p>
+                <p>Numero de Serie: <strong>{{datosNetbook.serie}}</strong></p>
                 <p></p>
             </div>
         </div>
-        
-    </div>    
+
+    </div>
 </div>
 <hr />
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">DETALLE</th>
-            <th scopet="col">ESTADO</th>
-            <th scope="col">FECHA</th>
-
+            <th scope="col">ESTADO</th>
+            <th scope="col">DETALLE</th>            
+            <th scopet="col">AC/IN</th>
+            <th scope="col">FECHA</th>            
         </tr>
     </thead>
     <tbody>
         {{#each listaEstados}}
         <tr>
             <th scope="row">{{@index}}</th>
+            <td>{{nombre_estado}}</td>
             <td>{{detalle}}</td>
             <td>{{estado}}</td>
-            <td>{{fecha}}</td>
+            <td>{{fecha}}</td>            
         </tr>
         {{/each}}
     </tbody>

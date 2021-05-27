@@ -1,8 +1,55 @@
-<div class="container-fluid">
-    <h1>Nuevo prestamo</h1>
-    {{#each netbooks}}
-    <div class="card">
-        <img src="..." class="rounded float-left netbook" alt="...">
+<div class="row mt-5">    
+    <div class="col-md-4">
+        <h3 class="bg bg-primary text-center text-white">Nuevo prestamo</h1>
+        <form action="/prestamos/add" class="row g-3" method="POST">
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <label for="nombre">Nombre Usuario</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" value="{{nombre}}">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <label for="numero">Numero Netbook</label>
+                    <input type="text" id="numero" name="numero" class="form-control" value="{{numero}}">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating mb-3">
+                    <label for="observacion">observacion</label>
+                    <input type="text" id="observacion" name="observacion" class="form-control" value="{{observacion}}">
+                </div>
+            </div>
+            <div class="col-12 d-grid">
+                <button class="btn btn-outline-success btn-block">
+                    GUARDAR
+                </button>
+            </div>
+        </form>
     </div>
-    {{/each}}
+    <div class="col-md-8">
+        <h3 class="bg bg-primary text-center text-white">Lista de prestamos</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">USUARIO</th>
+                    <th scope="col">N° NET</th>                    
+                    <th scope="col">OBSERVACION</th>
+                    <th scope="col">FECHA</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each listaPrestamos}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td>{{nombre_usuario}}</td>
+                    <td><a href="/prestamos/devol/{{id}}" class="link-success">{{numero}}</a></td>                    
+                    <td>{{observacion}}</td>
+                    <td>{{timeago fecha}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div> 
 </div>

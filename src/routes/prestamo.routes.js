@@ -1,32 +1,42 @@
 const {Router} = require('express');
+const { check } = require('express-validator');
 
 const router = Router();
 
 const {
     renderPrestamoForm,
     createNewPrestamo,
-    renderPrestamos,
-    renderEditPrestamoForm,
-    updatePrestamo,        
-    deletePrestamo,
+    renderDevolucion,
+    saveDevolucion
 } = require('../controllers/prestamos.controller');
+
+//------------------- VALIDACIONES ----------------------//
+const validar = [
+    check('nombre')
+        .exists()
+        .matches(/^[A-Za-z\s]+$/)
+        .withMessage('Nombre debe contener solo caracteres alfabeticos')
+        .isLength({min:6})
+        .withMessage('El nombre debe tener minimo 6 caracteres')
+    ,
+    check('numero')
+        .exists()
+        .trim()
+        .isInt()
+        .withMessage('Numero de netbook debe contener solo caracteres numéricos enteros')
+];
+
+//-------------------   RUTAS   -----------------------//
 
 //-->   Renderizar Nuevo Prestamos
 router.get('/prestamos/add', renderPrestamoForm);
 
 //-->   Registra el prestamo en la Base de Datos
-router.post('/prestamos/add', createNewPrestamo);
+router.post('/prestamos/add', validar, createNewPrestamo);
 
-//-->   Renderiza todos los prestamos
-router.get('/prestamos/',renderPrestamos);
+//-->   Cuando se quiere devolver
+router.get('/prestamos/devol/:id', renderDevolucion);
 
-//-->   Renderiza los prestamos para editarlos
-router.get('/prestamos/edit/:id', renderEditPrestamoForm);
-
-//-->   Actualiza el prestamo
-router.put('/prestamos/edit/:id', updatePrestamo);
-
-//--> Borra el prestamo seleccionado
-router.delete('/prestamos/delete/:id', deletePrestamo);
+router.post('/prestamos/devolvio/:id', saveDevolucion);
 
 module.exports = router;

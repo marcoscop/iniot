@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
-const mysql = require('mysql');
+
 const myConnection = require('express-myconnection');
 // Inicializacion
 const app = express();
@@ -18,18 +18,19 @@ app.engine('.hbs', exphbs({
     defaultLayout:'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
-    extname:'.hbs'
+    extname:'.hbs',
+    helpers: require('./lib/handlebars')
 }));
 app.set('view engine', '.hbs');
 // Middlewares
 app.use(morgan('dev'));
-app.use(myConnection(mysql,{
+/*app.use(myConnection(mysql,{
     host:'localhost',
     user:'marcos',
     password: 'marcos',
     port:3306,
     database:'iniot'
-},'single'));
+},'single'));*/
 app.use(express.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
 app.use(session({   //--> para guardar mensajes en el servidor -  flash se basa en este modulo
@@ -42,6 +43,7 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.errors_msg = req.flash('errors_msg');
+    res.locals.warning_msg = req.flash('warning_msg');
     next();
 });
 // Routes
@@ -50,6 +52,8 @@ app.use(require('./routes/carrito.routes'));
 app.use(require('./routes/nets.routes'));
 app.use(require('./routes/prestamo.routes'));
 app.use(require('./routes/estado.routes'));
+app.use(require('./routes/users.routes'));
+
 //app.use(require('./routes/users.routes'));
 // Static Files
 app.use(express.static(path.join(__dirname, 'public'))); 

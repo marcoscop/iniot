@@ -1,49 +1,66 @@
 <div class="col-md-8 mx-auto">
     <div class="card">
-        <div class="card-header">
-            <h3>Nueva Netbook</h3>
+        <div class="card-header bg-primary">
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="text-white">Editar datos de Netbook</h5>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <h5 class="text-white">carrito</h5>
+                </div>
+            </div>
         </div>
         <div class="card-bady">
-            <form action="/netbooks/edit/{{netbook._id}}?_method=PUT" method="post">
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="inputState">Carrito</label>
-                        <select id="inputState" name = "idCarrito" class="form-control">
-                            {{#each carritos}}
-                            <option value="{{_id}}">{{nombre}}</option>
-                            {{/each}}
-                        </select>
+            <form class="row g-3" action="/netbooks/add/{{idCarrito}}/{{nombreCarrito}}" method="post">
+                <input type="hidden" name="idCarrito" value="{{idCarrito}}">
+                <input type="hidden" name="nombreCarrito" value="{{nombreCarrito}}">
+                <div class="col-6">
+                    <div class="form-floating mb-3">
+                        <label for="numero">N° de Netbook</label>
+                        <input type="text" id="numero" name="numero" class="form-control" value="{{numero}}"
+                            placeholder="Numero de Netbook" />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputEmail4">Numero de Netbook</label>
-                        <input type="text" name = "numero" class="form-control md-4" value="{{netbook.numero}}"/>
-                    </div>
-                    <div class="col">
-                        <label for="inputEmail4">Numero de Serie</label>
-                        <input type="text" name = "serie" class="form-control" value = "{{netbook.serie}}" />
-                    </div>
-                    <div class="col">
-                        <label for="inputEmail4">Mac-Address</label>
-                        <input type="text" name = "macaddress" class="form-control" value = "{{netbook.mac}}"/>
+                <div class="col-6">
+                    <div class="form-floating mb-3">
+                        <label for="floatingSerie">Numero de Serie</label>
+                        <input type="text" id="floatingSerie" name="serie" class="form-control"
+                            placeholder="Numero de Serie" value="{{serie}}" />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputEmail4">Marca</label>
-                        <input type="text" name = "marca" class="form-control" value = "{{netbook.marca}}"/>
-                    </div>
-                    <div class="col">
-                        <label for="inputEmail4">Modelo</label>
-                        <input type="text" name = "modelo" class="form-control" value = "{{netbook.modelo}}"/>
+                <div class="col-12">
+                    <div class="form-floating mb-3">
+                        <label for="floatingMac">Mac-Address</label>
+                        <input type="text" id="floatingMac" name="macaddress" class="form-control"
+                            placeholder="Mac-Address" value="{{macaddress}}" />
                     </div>
                 </div>
-                <div class="form-guoup">
-                    <button class="btn btn-primary">
-                        Guardar
-                    </button>
+                <div class="col-6">
+                    <div class="form-floating mb-3">
+                        <label for="floatingMarca">Marca</label>
+                        <input type="text" id="floatingMarca" name="marca" class="form-control" placeholder="Marca"
+                            value="{{marca}}" />
+                    </div>
                 </div>
+                <div class="col-6">
+                    <div class="form-floating mb-3">
+                        <label for="floatingModelo">Modelo</label>
+                        <input type="text" id="floatingModelo" name="modelo" class="form-control" placeholder="Modelo"
+                            value="{{modelo}}" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating mb-3">
+                        <label for="floatingModelo">Detalles</label>
+                        <input type="text" name="detalle" id="floatingModelo" class="form-control"
+                            placeholder="Detalles" style="height: :200px;" value="{{detalle}}">
+                    </div>
+                </div>
+
+                <button class="btn btn-outline-success btn-block">
+                    Guardar
+                </button>
+
             </form>
         </div>
     </div>

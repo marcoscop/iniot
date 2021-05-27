@@ -1,14 +1,26 @@
-body{
-   /* background: #000000;*/
+p {
+    font-family: Arial;
+  }
+
+tr:hover {
+    background-color:#82E0AA;
 }
-hr{
-    border: 0 ; border-top: 4px double rgb(56, 113, 146);
+.tr-color{
+    background-color: #8ab6d6;
+    color: white;
+    font-weight: bold;
 }
-/*.rackImg{
-    width: 30%;
-}*/
+.listaNetbook{
+    background-color: #82E0AA;
+}
 .myform{
-    background-color: rgba(191, 191, 207, 0.486);
+    background-color: #58A1D6;
+}
+img{
+    fill: blue;
+}
+.logoIn{
+    width: 35%;
 }
 .imgEditAndDelete{
     width: 10%;
@@ -20,3 +32,11 @@ hr{
     background-color: antiquewhite;
     border-radius: 30px;
 }
+.bi::before {
+    display: inline-block;
+    content: "";
+    vertical-align: -.125em;
+    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }

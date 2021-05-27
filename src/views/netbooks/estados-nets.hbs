@@ -1,8 +1,19 @@
-{{#each netbook}}
-<h3 class="text-primary">Pertenece a: {{nombre}}</h3>
+<div class="row">
+  <div class="col-8">
+    <h4 class="text-primary">Informacion de los Estados de la Netbook</h4>
+  </div>
+  <div class="col-4">
+    <h4 class="text-primary">Pertenece a: {{datosNetbook.nombreCarrito}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h5 class="text-danger">Informacion del Ultimo Estado</h5>
+  </div>
+</div>
 
-<table class="table  table-bordered table-light table-hover text-center">
-  <thead class="table-light">
+<table class="table  table-bordered text-center">
+  <thead class="thead-dark">
     <tr>
       <th scope="col">NUMERO</th>
       <th scope="col">SERIE</th>
@@ -14,19 +25,20 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">{{numero}}</th>
-      <td>{{serie}}</td>
-      <td>{{marca}}</td>
-      <td>{{modelo}}</td>
-      <td>{{macaddress}}</td>
-      <td>{{estado}}</td>
+      <th scope="row">{{datosNetbook.numero}}</th>
+      <td>{{datosNetbook.serie}}</td>
+      <td>{{datosNetbook.marca}}</td>
+      <td>{{datosNetbook.modelo}}</td>
+      <td>{{datosNetbook.macaddress}}</td>
+      <td>{{ultimoEstadoNetbook.estado}}</td>
     </tr>
   </tbody>
 </table>
-<p> <strong> Detalles:</strong> {{detalle}} </p>
-{{/each}}
-<a href="/estados/{{idNetbook}}"> <button type="button" class="btn btn-outline-primary">+Add Estado</button></a>
-<hr/>
+<p> <strong> Detalles:</strong> {{ultimoEstadoNetbook.detalle}} </p>
+
+<a href="/estados/{{datosNetbook.idNetbook}}"> <button type="button" class="btn btn-outline-primary">+Add
+    Estado</button></a>
+<hr />
 <table class="table">
   <thead>
     <tr>
@@ -38,10 +50,10 @@
     </tr>
   </thead>
   <tbody>
-    {{#each listadoEstados}}
+    {{#each netbook}}
     <tr>
       <th scope="row">{{@index}}</th>
-      <td>{{detalle}}</td>
+      <td>{{observaciones}}</td>
       <td>{{estado}}</td>
       <td>{{fecha}}</td>
     </tr>

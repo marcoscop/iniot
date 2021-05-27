@@ -39,7 +39,7 @@ router.post('/netbooks/add/:id/:nom',validar, createNewNet);
 router.get('/netbooks/:id/:carrito', renderNets);
 
 // Editar Netbooks
-router.get('/netbooks/edit/:id', renderEditForm);
+router.get('/netbooks/edit/:id/:carrito', renderEditForm);
 
 router.put('/netbooks/edit/:id', updateNet);
 

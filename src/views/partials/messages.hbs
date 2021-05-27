@@ -15,6 +15,16 @@
     </div>
 {{/if}}
 
+{{#if warning_msg}}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        
+        {{warning_msg}}
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{{/if}}
+
 {{#if validation_msg}}
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{validation_msg}}

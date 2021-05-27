@@ -1,32 +1,33 @@
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-md-7">
-            {{nombre}}
+<div class="col-md-8 mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h3 class="text-light">Nuevo Carrito</h3>
         </div>
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header bg-primary">
-                    <h3>Nuevo Carrito</h3>
+        <div class="card-body">
+            <form action="/carritos/new-carrito" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre de Carrito</label>
+                    <input type="text" name="nombre" placeholder="Nombre Carrito" required class="form-control"
+                        value="{{nombre}}">
                 </div>
-                <div class="card-body">
-                    <form action="/carritos/new-carrito" method="post">
-                        <div class="form-group">
-                            <input type="text" name="nombre" placeholder="Nombre Carrito" required class="form-control" value="{{nombre}}">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="cantidad" placeholder="Cantidad de Netbooks" required class="form-control" value="{{cantidad}}">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="detalle" class="form-control" placeholder="Detalle"></textarea>
-                        </div>
-                        <div class="form-guoup">
-                            <button class="btn btn-primary">
-                                Guardar
-                            </button>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="nombre">Cantidad de Netbooks Recibidas</label>
+                    <input type="text" name="cantidad" placeholder="Cantidad de Netbooks" required class="form-control"
+                        value="{{cantidad}}">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="nombre">Detalles y/o Observaciones</label>
+                    <textarea name="detalle" class="form-control" placeholder="Detalle"></textarea>
+                </div>
+                <div class="col-12 d-grid">
+                    <div class="form-guoup">
+
+                        <button class="btn btn-success btn-block">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

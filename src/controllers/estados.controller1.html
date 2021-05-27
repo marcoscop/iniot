@@ -1,0 +1,93 @@
+const estadoController = {}
+
+
+estadoController.renderEstado = async (req, res) => {
+    //res.send('Estamos');
+    const idNetbook = req.params.id;
+    //console.log("Id de la netbook: ", idNetbook);
+    //console.log(req.body);
+    await req.getConnection((err, conn) => {
+        if (err) {
+            console.log(err);
+        } else {
+            conn.query('SELECT estados.id, estados.detalle, estados.estado, DATE_FORMAT(estados.fecha, "%d-%m-%Y %a:%H-%i") AS fecha, ' +
+                'netbook.id AS idNet, netbook.numero AS numero, netbook.serie AS serie, netbook.macaddress AS mac' +
+                ' FROM `estados` INNER JOIN netbook ON estados.id_netbook = netbook.id ' +
+                ' WHERE netbook.id = ? ORDER BY fecha ASC', [idNetbook], (err, listaEstados) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        let serie = "";
+                        let numero = "";
+                        let id = "";
+                        let macaddress = "";
+                        //console.log('LONGITUD: ', Object.keys(listaEstados).length);
+                        if (Object.keys(listaEstados).length > 0) {
+                            //console.log('Lista de estados: ', listaEstados);
+                            serie = listaEstados[0].serie;
+                            numero = listaEstados[0].numero;
+                            id = listaEstados[0].idNet;
+                            macaddress = listaEstados[0].mac;
+                            res.render('estados/all-estados', {
+                                listaEstados,
+                                numero,
+                                serie,
+                                id,
+                                macaddress
+                            });
+                        }else{
+                            conn.query('SELECT id, numero, serie, macaddress FROM netbook WHERE id= ?',[idNetbook],(err, datosNetbook) => {
+                                serie = datosNetbook[0].serie;
+                                numero = datosNetbook[0].numero;
+                                id = datosNetbook[0].id;
+                                macaddress = datosNetbook[0].macaddress;
+                                res.render('estados/all-estados', {                                    
+                                    numero,
+                                    serie,
+                                    id,
+                                    macaddress
+                                });
+                            });
+                        }
+                        
+                    }
+                });
+        }
+    });
+};
+
+estadoController.renderNewEstado = async (req, res) => {
+    let tiempo = new Date();
+    //console.log('params: ', req.params);
+    //console.log('body: ', req.body);
+    const idNetbook = req.params.id;
+    //console.log('Hora: ', d.getHours());
+    let hora = tiempo.getHours() 
+    let minutos = tiempo.getMinutes();
+    
+    const { detalle, fecha, estado } = req.body;
+    let fechaEstado = fecha+' '+hora +':'+minutos
+    console.log('Fecha y Hora: ', fechaEstado);
+    const estadoNetbook = {
+        id_netbook: idNetbook,
+        detalle: detalle,
+        fecha: fechaEstado,
+        estado: estado
+    };
+    //console.log('estado: ', estadoNetbook);
+    await req.getConnection((err, conn) => {
+        let sql = 'INSERT INTO estados SET ?';
+        conn.query(sql, [estadoNetbook], (err, rows) => {
+            if (err) {
+                console.log(err);
+            } else {                                
+                req.flash('success_msg', 'Se ha guardado un nuevo estado');
+                res.redirect('/netbooks/' + idNetbook + '/15');
+            }
+        });
+    });
+    //res.send(req.body);
+};
+
+
+module.exports = estadoController;

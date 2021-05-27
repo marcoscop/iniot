@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="mx-auto">
+        <div class="card" style="width: 38rem;">
+            <h3 class="card-header bg-primary text-white">Datos del prestamo</h3>
+            <div class="card-body text-center">
+                <form action="/prestamos/devolvio/{{idPrestamo}}" method="POST">
+                    <div class="mb-3">
+                        <label for="nombreUsuario" class="form-label"><strong> Nombre:
+                            </strong>{{nombrePrestamo}}</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label"><strong>Fecha: </strong>{{fechaPrestamo}}</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="observacion" class="form-label"><strong>Observacion:
+                            </strong>{{observacion}}</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" hidden class="form-check-input" id="exampleCheck1" checked
+                            name="devolucion">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
